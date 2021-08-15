@@ -19,6 +19,20 @@ abstract class BaseDataSource {
         }
     }
 
+    protected suspend fun <T> getParsedResult(call: suspend () -> Response<T>): T? {
+        try {
+            val response = call()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) return body
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+
+    }
+
     private fun <T> error(message: String): Resource<T> {
         Timber.d(message)
         return Resource.error("Network call has failed for a following reason: $message")

@@ -1,7 +1,5 @@
 package com.nytimes.data.remote
 
-import com.nytimes.data.remote.BaseDataSource
-import com.nytimes.data.remote.NetworkService
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
@@ -9,5 +7,5 @@ class RemoteDataSource @Inject constructor(
 ) : BaseDataSource() {
 
     suspend fun getSellers() = getResult { networkService.getAllSellers() }
-    suspend fun searchMovies(query: String) = getResult { networkService.getSearchMovies(query) }
+    suspend fun getBooks(query: String) = getParsedResult { networkService.getBooks(query) }
 }

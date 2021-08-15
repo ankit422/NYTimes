@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.nytimes.data.local.AppDatabase
-import com.nytimes.data.local.BooksDao
 import com.nytimes.data.local.SellersDao
 import com.nytimes.data.remote.NetworkService
 import com.nytimes.data.remote.RemoteDataSource
@@ -48,18 +47,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMovieDao(db: AppDatabase) = db.moviesDao()
+    fun provideSellerDao(db: AppDatabase) = db.sellerDao()
 
-    @Singleton
-    @Provides
-    fun provideGenreDao(db: AppDatabase) = db.genreDao()
 
     @Singleton
     @Provides
     fun provideRepository(
         remoteDataSource: RemoteDataSource,
-        movieDataSource: SellersDao,
-        genreDataSource: BooksDao
+        sellerDataSource: SellersDao
     ) =
-        DataRepository(remoteDataSource, movieDataSource, genreDataSource)
+        DataRepository(remoteDataSource, sellerDataSource)
 }

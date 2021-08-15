@@ -1,4 +1,4 @@
-package com.movielist.utils
+package com.nytimes.utils
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver

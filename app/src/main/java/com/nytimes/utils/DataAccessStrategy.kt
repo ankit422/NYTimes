@@ -1,9 +1,9 @@
-package com.movielist.utils
+package com.nytimes.utils
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.nytimes.utils.Resource
 import com.nytimes.utils.Resource.Status.ERROR
 import com.nytimes.utils.Resource.Status.SUCCESS
 import kotlinx.coroutines.Dispatchers
@@ -29,8 +29,11 @@ fun <T, A> performGetOperation(
     }
 
 
-fun <T> performGetClickedOperation(databaseQuery: () -> LiveData<T>): LiveData<Resource<T>> =
+fun <T> performGetClickedOperation(networkCall: suspend () -> LiveData<T>): LiveData<Resource<T>> =
     liveData(Dispatchers.IO) {
-        val source = databaseQuery.invoke().map { Resource.success(it) }
-        emitSource(source)
+        val responseStatus = networkCall.invoke()
+        if (responseStatus.value == SUCCESS) {
+            emitSource(MutableLiveData(Resource.success(responseStatus.value!!)))
+
+        }
     }

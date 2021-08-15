@@ -1,17 +1,13 @@
 package com.nytimes.data.entities
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.nytimes.utils.ListTypeConverter
 import java.io.Serializable
 
 
-@Entity(tableName = "book")
 data class Book(
-    @PrimaryKey var id: Int?,
-    var title: String?,
-    var description: String?,
-    var author: String?,
-    var contributor: String?,
-    var publisher: String?,
-    var price: String?,
+    var rank: String?,
+    var list_name: String?,
+    @TypeConverters(ListTypeConverter::class) var book_details: MutableList<BookDetails>? = null,
 ) : Serializable

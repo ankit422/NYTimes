@@ -8,13 +8,13 @@ import androidx.room.TypeConverters
 import com.nytimes.utils.ListTypeConverter
 import com.nytimes.data.entities.Book
 import com.nytimes.data.entities.Seller
+import com.nytimes.utils.DateTypeConverter
 
-@Database(entities = [Seller::class, Book::class], version = 3, exportSchema = false)
-@TypeConverters(ListTypeConverter::class)
+@Database(entities = [Seller::class], version = 11, exportSchema = false)
+@TypeConverters(ListTypeConverter::class, DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun moviesDao(): SellersDao
-    abstract fun genreDao(): BooksDao
+    abstract fun sellerDao(): SellersDao
 
     companion object {
         @Volatile

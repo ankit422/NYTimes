@@ -9,15 +9,9 @@ import com.nytimes.data.entities.Seller
 
 @Dao
 interface SellersDao {
-    @Query("SELECT * FROM seller")
+    @Query("SELECT * FROM seller order by newest_published_date")
     fun getAll(): LiveData<List<Seller>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(movies: List<Seller>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(movie: Seller)
-//
-//    @Query("SELECT * FROM seller WHERE ID = :id")
-//    fun getMovie(id: Int): LiveData<Seller>
+    suspend fun insertAll(seller: List<Seller>)
 }
